@@ -77,7 +77,7 @@ const chat = createServerFn(
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "deepseek-r1:32b",
+        model: "deepseek-r1:14b",
         streaming: true,
         options: {
           temperature: 0.1,
@@ -93,7 +93,9 @@ const chat = createServerFn(
 function AIChat() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
-  const [premise, setPremise] = useState("You are a software developer with a focus on React/TypeScript.\rKeep your answer simple and straight forward.");
+  const [premise, setPremise] = useState(
+    "You are a software developer with a focus on React/TypeScript.\rKeep your answer simple and straight forward."
+  );
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -136,13 +138,20 @@ function AIChat() {
       <div className="p-4 container mx-auto max-w-4xl space-y-4">
         <label htmlFor={"premise"}>
           Premise:
-          <textarea name={"premise"} style={{ color: "black", padding: "5px 10px", width: "100%" }} value={premise} onChange={(e) => setPremise(e.target.value)} />
+          <textarea
+            name={"premise"}
+            style={{ color: "black", padding: "5px 10px", width: "100%" }}
+            value={premise}
+            onChange={(e) => setPremise(e.target.value)}
+          />
         </label>
       </div>
       <div className="flex-1 p-4 container mx-auto max-w-4xl space-y-4 pb-32">
         {messagesWithThinkingSplit
           .filter(({ role }) => role === "user" || role === "assistant")
-          .map((m, index) => <AIMessage key={index} message={m} />)}
+          .map((m, index) => (
+            <AIMessage key={index} message={m} />
+          ))}
       </div>
 
       <div className="fixed bottom-0 left-0 right-0 p-4 bg-gray-800 border-t border-gray-700">
@@ -178,24 +187,33 @@ function AIChat() {
 }
 
 const AIMessage: React.FC<{ message: MessageWithThinking }> = ({ message }) => {
-  const [collapsed, setCollapsed] = useState(true)
+  const [collapsed, setCollapsed] = useState(true);
 
   return (
     <div
       className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
     >
       <div
-        className={`max-w-[80%] rounded-lg p-4 ${message.role === "user"
-          ? "bg-primary text-black"
-          : "bg-gray-800 text-gray-100"
-          }`}
+        className={`max-w-[80%] rounded-lg p-4 ${
+          message.role === "user"
+            ? "bg-primary text-black"
+            : "bg-gray-800 text-gray-100"
+        }`}
       >
-        <div className="flex items-center gap-2 mb-2" style={{ justifyContent: "space-between" }}>
-          <span className="text-sm font-medium" style={{ display: "flex", gap: 10 }}>
+        <div
+          className="flex items-center gap-2 mb-2"
+          style={{ justifyContent: "space-between" }}
+        >
+          <span
+            className="text-sm font-medium"
+            style={{ display: "flex", gap: 10 }}
+          >
             {message.role === "user" ? (
               <User2 className="h-4 w-4" />
+            ) : !message.finishedThinking ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
             ) : (
-              !message.finishedThinking ? <Loader2 className="h-4 w-4 animate-spin" /> : <Bot className="h-4 w-4" />
+              <Bot className="h-4 w-4" />
             )}
 
             <span>{message.role === "user" ? "You" : "DeepSeek R1 (32b)"}</span>
@@ -203,7 +221,11 @@ const AIMessage: React.FC<{ message: MessageWithThinking }> = ({ message }) => {
           <span>
             {message.role === "assistant" && (
               <span
-                style={{ cursor: "pointer", fontStyle: "italic", fontSize: "12px" }}
+                style={{
+                  cursor: "pointer",
+                  fontStyle: "italic",
+                  fontSize: "12px",
+                }}
                 onClick={() => setCollapsed((c) => !c)}
               >
                 {collapsed ? "show thoughts" : "hide thoughts"}
@@ -219,19 +241,23 @@ const AIMessage: React.FC<{ message: MessageWithThinking }> = ({ message }) => {
         )}
 
         {message.think && (
-          <div style={{ display: collapsed ? "none" : "block" }} className="mb-2 text-sm italic border-l-2 border-gray-600 pl-2 py-1 text-gray-300">
+          <div
+            style={{ display: collapsed ? "none" : "block" }}
+            className="mb-2 text-sm italic border-l-2 border-gray-600 pl-2 py-1 text-gray-300"
+          >
             <Markdown>{message.think}</Markdown>
           </div>
         )}
         <article
-          className={`prose max-w-none ${message.role === "user"
-            ? "prose-invert prose-p:text-black prose-headings:text-black prose-strong:text-black prose-li:text-black"
-            : "prose-invert prose-p:text-gray-100 prose-headings:text-gray-100 prose-strong:text-gray-100 prose-li:text-gray-100"
-            }`}
+          className={`prose max-w-none ${
+            message.role === "user"
+              ? "prose-invert prose-p:text-black prose-headings:text-black prose-strong:text-black prose-li:text-black"
+              : "prose-invert prose-p:text-gray-100 prose-headings:text-gray-100 prose-strong:text-gray-100 prose-li:text-gray-100"
+          }`}
         >
           <Markdown>{message.content}</Markdown>
         </article>
       </div>
     </div>
-  )
-}
+  );
+};
