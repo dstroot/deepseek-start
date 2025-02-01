@@ -137,10 +137,10 @@ function AIChat() {
     <div className="flex flex-col min-h-screen bg-gray-900">
       <div className="p-4 container mx-auto max-w-4xl space-y-4">
         <label htmlFor={"premise"}>
-          Premise:
+          <span className="font-semibold text-xl">Premise:</span>
           <textarea
-            name={"premise"}
-            style={{ color: "black", padding: "5px 10px", width: "100%" }}
+            name="premise"
+            className="bg-gray-800 ring-0 ring-transparent border-gray-700 text-gray-100 w-full mt-4 rounded-lg p-4"
             value={premise}
             onChange={(e) => setPremise(e.target.value)}
           />
@@ -196,8 +196,9 @@ const AIMessage: React.FC<{ message: MessageWithThinking }> = ({ message }) => {
       <div
         className={`max-w-[80%] rounded-lg p-4 ${
           message.role === "user"
-            ? "bg-primary text-black"
-            : "bg-gray-800 text-gray-100"
+            ? // ? "bg-primary text-black"
+              "bg-gray-600 text-gray-100"
+            : "bg-gray-800 text-gray-200"
         }`}
       >
         <div
@@ -251,8 +252,8 @@ const AIMessage: React.FC<{ message: MessageWithThinking }> = ({ message }) => {
         <article
           className={`prose max-w-none ${
             message.role === "user"
-              ? "prose-invert prose-p:text-black prose-headings:text-black prose-strong:text-black prose-li:text-black"
-              : "prose-invert prose-p:text-gray-100 prose-headings:text-gray-100 prose-strong:text-gray-100 prose-li:text-gray-100"
+              ? "prose-invert prose-p:text-gray-100 prose-headings:text-gray-100 prose-strong:text-gray-100 prose-li:text-gray-100"
+              : "prose-invert prose-p:text-gray-200 prose-headings:text-gray-200 prose-strong:text-gray-200 prose-li:text-gray-200"
           }`}
         >
           <Markdown>{message.content}</Markdown>
