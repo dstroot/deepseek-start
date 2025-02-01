@@ -46,7 +46,7 @@ importers:
         version: 1.0.7(tailwindcss@3.4.14)
       vinxi:
         specifier: 0.5.1
-        version: 0.5.1(@types/node@22.7.8)(db0@0.2.3)(ioredis@5.4.2)(jiti@2.4.2)(terser@5.36.0)(tsx@4.19.1)(typescript@5.6.3)(yaml@2.6.0)
+        version: 0.5.1(@types/node@22.7.8)(db0@0.2.3)(ioredis@5.4.2)(jiti@2.4.2)(terser@5.36.0)(tsx@4.19.1)(typescript@5.7.3)(yaml@2.6.0)
     devDependencies:
       '@tailwindcss/typography':
         specifier: ^0.5.16
@@ -70,8 +70,8 @@ importers:
         specifier: ^3.4.14
         version: 3.4.14
       typescript:
-        specifier: ^5.6.2
-        version: 5.6.3
+        specifier: ^5.7.3
+        version: 5.7.3
 
 packages:
 
@@ -3448,8 +3448,8 @@ packages:
     resolution: {integrity: sha512-s6zVrxuyKbbAsSAD5ZPTB77q4YIdRctkTbJ2/Dqlinwz+8ooH2gd+YA7VA6Pa93KML9GockVvoxjZ2vHP+mu8g==}
     engines: {node: '>=16'}
 
-  typescript@5.6.3:
-    resolution: {integrity: sha512-hjcS1mhfuyi4WW8IWtjP7brDrG2cuDZukyrYrSauoXGNgx0S7zceP07adYkJycEr56BOUTNPzbInooiN3fn1qw==}
+  typescript@5.7.3:
+    resolution: {integrity: sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -6586,7 +6586,7 @@ snapshots:
 
   nanoid@3.3.8: {}
 
-  nitropack@2.10.4(typescript@5.6.3):
+  nitropack@2.10.4(typescript@5.7.3):
     dependencies:
       '@cloudflare/kv-asset-handler': 0.3.4
       '@netlify/functions': 2.8.2
@@ -6635,7 +6635,7 @@ snapshots:
       node-fetch-native: 1.6.6
       ofetch: 1.4.1
       ohash: 1.1.4
-      openapi-typescript: 7.6.0(typescript@5.6.3)
+      openapi-typescript: 7.6.0(typescript@5.7.3)
       pathe: 1.1.2
       perfect-debounce: 1.0.0
       pkg-types: 1.3.1
@@ -6876,14 +6876,14 @@ snapshots:
       undici: 5.28.4
       yargs-parser: 21.1.1
 
-  openapi-typescript@7.6.0(typescript@5.6.3):
+  openapi-typescript@7.6.0(typescript@5.7.3):
     dependencies:
       '@redocly/openapi-core': 1.28.0(supports-color@9.4.0)
       ansi-colors: 4.1.3
       change-case: 5.4.4
       parse-json: 8.1.0
       supports-color: 9.4.0
-      typescript: 5.6.3
+      typescript: 5.7.3
       yargs-parser: 21.1.1
 
   package-json-from-dist@1.0.1: {}
@@ -7495,7 +7495,7 @@ snapshots:
 
   type-fest@4.33.0: {}
 
-  typescript@5.6.3: {}
+  typescript@5.7.3: {}
 
   ufo@1.5.4: {}
 
@@ -7804,7 +7804,7 @@ snapshots:
       - webpack-sources
       - xml2js
 
-  vinxi@0.5.1(@types/node@22.7.8)(db0@0.2.3)(ioredis@5.4.2)(jiti@2.4.2)(terser@5.36.0)(tsx@4.19.1)(typescript@5.6.3)(yaml@2.6.0):
+  vinxi@0.5.1(@types/node@22.7.8)(db0@0.2.3)(ioredis@5.4.2)(jiti@2.4.2)(terser@5.36.0)(tsx@4.19.1)(typescript@5.7.3)(yaml@2.6.0):
     dependencies:
       '@babel/core': 7.26.7
       '@babel/plugin-syntax-jsx': 7.25.9(@babel/core@7.26.7)
@@ -7826,7 +7826,7 @@ snapshots:
       hookable: 5.5.3
       http-proxy: 1.18.1
       micromatch: 4.0.8
-      nitropack: 2.10.4(typescript@5.6.3)
+      nitropack: 2.10.4(typescript@5.7.3)
       node-fetch-native: 1.6.6
       path-to-regexp: 6.3.0
       pathe: 1.1.2
