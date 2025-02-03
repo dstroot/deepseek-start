@@ -7,6 +7,8 @@ import Markdown from "react-markdown";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 
+const model = "deepseek-r1:14b";
+
 type Message = {
   role: "user" | "assistant" | "tool" | "system";
   content: string;
@@ -77,7 +79,7 @@ const chat = createServerFn(
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "deepseek-r1:14b",
+        model: model,
         streaming: true,
         options: {
           temperature: 0.1,
@@ -255,7 +257,7 @@ const AIMessage: React.FC<{ message: MessageWithThinking }> = ({ message }) => {
               <Bot className="h-4 w-4" />
             )}
 
-            <span>{message.role === "user" ? "You" : "DeepSeek R1 (32b)"}</span>
+            <span>{message.role === "user" ? "You" : model}</span>
           </span>
           <span>
             {message.role === "assistant" && (
@@ -282,9 +284,17 @@ const AIMessage: React.FC<{ message: MessageWithThinking }> = ({ message }) => {
         {message.think && (
           <div
             style={{ display: collapsed ? "none" : "block" }}
-            className="mb-2 text-sm italic border-l-2 border-gray-600 pl-2 py-1 text-gray-300"
+            className="mb-2 italic border-l-2 border-gray-600 pl-2 py-1 text-gray-300"
           >
-            <Markdown>{message.think}</Markdown>
+            <div
+              className={`prose max-w-none ${
+                message.role === "user"
+                  ? "prose-invert prose-p:text-gray-100 prose-headings:text-gray-100 prose-strong:text-gray-100 prose-li:text-gray-100"
+                  : "prose-invert prose-p:text-gray-400 prose-headings:text-gray-400 prose-strong:text-gray-400 prose-li:text-gray-400"
+              }`}
+            >
+              <Markdown className="text-sm">{message.think}</Markdown>
+            </div>
           </div>
         )}
         <article
