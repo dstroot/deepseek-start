@@ -91,12 +91,12 @@ const chat = createServerFn(
 );
 
 function AIChat() {
-  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [premise, setPremise] = useState(
     "You are a software developer with a focus on React/TypeScript.\rKeep your answer simple and straight forward."
   );
-  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -115,9 +115,47 @@ function AIChat() {
       let assistantResponse = "";
       const reader = stream.body.getReader();
       for await (const value of streamAsyncIterator(reader)) {
+        // here is where it would differ if calling deepseek directly
+        // Examples:
+
+        /*
+        const example = {
+          id: "chatcmpl-12345",
+          object: "chat.completion.chunk",
+          created: 1706985600,
+          model: "deepseek-chat",
+          choices: [
+            { index: 0, delta: { content: " is" }, finish_reason: null },
+          ],
+        };
+        const exampleEnd = {
+          id: "chatcmpl-12345",
+          object: "chat.completion.chunk",
+          created: 1706985600,
+          model: "deepseek-chat",
+          choices: [{ index: 0, delta: {}, finish_reason: "stop" }],
+        };
+        */
+
+        // Each response chunk contains:
+        //  - delta.content (partial text)
+        //  - finish_reason (set to "stop" in the last chunk)
+
+        // choices[0].delta.content
+
+        // const g = {
+        //   model: "deepseek-r1:14b",
+        //   created_at: "2025-02-03T21:24:37.019594Z",
+        //   message: { role: "assistant", content: " you" },
+        //   done: false,
+        // };
+
         const {
           message: { content },
         } = JSON.parse(value);
+
+        console.log(content);
+
         assistantResponse += content;
         setMessages([
           ...messagesWithInput,
