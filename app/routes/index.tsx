@@ -19,6 +19,8 @@ type MessageWithThinking = Message & {
   think?: string;
 };
 
+console.log(process.env.OPENROUTER_API_KEY);
+
 function useMessagesWithThinking(messages: Message[]) {
   return useMemo(
     () =>
@@ -92,6 +94,32 @@ const chat = createServerFn(
   }
 );
 
+// const deep = createServerFn(
+//   "POST",
+//   async ({ messages }: { messages: Message[] }) => {
+//     return fetch("https://openrouter.ai/api/v1/chat/completions", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//         Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+//       },
+//       body: JSON.stringify({
+//         model: "openai/gpt-3.5-turbo",
+//         streaming: true,
+//         options: {
+//           temperature: 0.1,
+//           repeat_penalty: 1.2,
+//         },
+//         // messages: [...messages],
+//         messages: [
+//           { role: "system", content: "You are a helpful assistant." },
+//           { role: "user", content: "Hello!" },
+//         ],
+//       }),
+//     });
+//   }
+// );
+
 function AIChat() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -152,11 +180,15 @@ function AIChat() {
         //   done: false,
         // };
 
+        // const content = JSON.parse(value).choices[0].delta.content;
+        // const finished = JSON.parse(value).choices[0].finish_reason === "stop";
+
+        // console.log(content);
+        // console.log(finished);
+
         const {
           message: { content },
         } = JSON.parse(value);
-
-        console.log(content);
 
         assistantResponse += content;
         setMessages([
