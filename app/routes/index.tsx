@@ -7,7 +7,7 @@ import Markdown from "react-markdown";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 
-const model = "deepseek-r1:14b";
+const model = "deepseek-r1:14b"; // gemma3:12b, deepseek-r1:14b
 
 type Message = {
   role: "user" | "assistant" | "tool" | "system";
